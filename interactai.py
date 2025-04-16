@@ -16,7 +16,7 @@ class GestureController:
         self.screen_width, self.screen_height = pyautogui.size()
         self.prev_x = 0
         self.prev_y = 0
-        self.y_history = []  # Store y-positions for right hand movement detection
+        self.y_history = []  
 
     def initialize(self):
         print("Initializing Gesture Controller...")
@@ -38,19 +38,19 @@ class GestureController:
     def count_fingers(self, landmarks, hand_type):
         fingers = []
         if hand_type == "Right":
-            fingers.append(1 if landmarks[4].x < landmarks[3].x else 0)  # Thumb
+            fingers.append(1 if landmarks[4].x < landmarks[3].x else 0)  
         else:
             fingers.append(1 if landmarks[4].x > landmarks[3].x else 0)
-        finger_tips = [8, 12, 16, 20]  # Index, Middle, Ring, Pinky
+        finger_tips = [8, 12, 16, 20]
         finger_bases = [6, 10, 14, 18]
         for tip, base in zip(finger_tips, finger_bases):
             fingers.append(1 if landmarks[tip].y < landmarks[base].y else 0)
-        return fingers  # Returns [thumb, index, middle, ring, pinky]
+        return fingers  
 
     def control_system(self, right_fingers=None, left_fingers=None, right_landmarks=None, left_landmarks=None, frame_width=None, frame_height=None):
         current_time = time.time()
 
-        # Mouse movement with right hand (if present)
+    
         if right_landmarks:
             index_tip = right_landmarks[8]
             x = int(index_tip.x * frame_width)
@@ -62,9 +62,9 @@ class GestureController:
             self.prev_x, self.prev_y = screen_x, screen_y
             pyautogui.moveTo(screen_x, screen_y)
 
-            # Track y-position for Volume Down movement detection
+           
             self.y_history.append(y)
-            if len(self.y_history) > 5:  # Limit to last 5 frames
+            if len(self.y_history) > 5: 
                 self.y_history.pop(0)
 
         if current_time - self.last_gesture_time < self.gesture_cooldown:
@@ -72,68 +72,68 @@ class GestureController:
 
         action = None
 
-        # Right Hand Gestures (Mouse, Scroll, Volume)
+     
         if right_fingers and right_landmarks:
             thumb_up, index_up, middle_up, ring_up, pinky_up = right_fingers
             all_fingers_up = thumb_up and index_up and middle_up and ring_up and pinky_up
-            # Left Click with thumb
+        
             if thumb_up and not index_up and not middle_up and not ring_up and not pinky_up:
                 pyautogui.click()
                 action = "Left Click"
-            # Right Click with index + middle
+         
             elif index_up and middle_up and not thumb_up and not ring_up and not pinky_up:
                 pyautogui.rightClick()
                 action = "Right Click"
-            # Double Click with index + thumb
+            
             elif index_up and thumb_up and not middle_up and not ring_up and not pinky_up:
                 pyautogui.doubleClick()
                 action = "Double Click"
-            # Scroll Up with 4 fingers (index, middle, ring, pinky)
+           
             elif not thumb_up and index_up and middle_up and ring_up and pinky_up:
-                pyautogui.scroll(800)  # Faster scroll up
+                pyautogui.scroll(800)  
                 action = "Scroll Up"
-            # Scroll Down with 3 fingers (index, middle, ring)
+           
             elif not thumb_up and index_up and middle_up and ring_up and not pinky_up:
-                pyautogui.scroll(-800)  # Faster scroll down
+                pyautogui.scroll(-800)  
                 action = "Scroll Down"
-            # Volume gestures with all fingers
+         
             elif all_fingers_up and len(self.y_history) >= 5:
-                y_diff = self.y_history[-1] - self.y_history[0]  # Positive = downward
-                if y_diff > 50:  # Downward movement for Volume Down
+                y_diff = self.y_history[-1] - self.y_history[0]
+                if y_diff > 50: 
                     pyautogui.press('volumedown')
                     action = "Volume Down"
-                elif abs(y_diff) < 20:  # Static for Volume Up
+                elif abs(y_diff) < 20:
                     pyautogui.press('volumeup')
                     action = "Volume Up"
 
-        # Left Hand Gestures (Window Management)
+        
         if left_fingers:
             thumb_up, index_up, middle_up, ring_up, pinky_up = left_fingers
-            # Shutdown with middle
+
             if middle_up and not thumb_up and not index_up and not ring_up and not pinky_up:
                 pyautogui.hotkey('alt', 'f4')
                 action = "Shutdown"
-            # Minimize with index
+        
             elif index_up and not thumb_up and not middle_up and not ring_up and not pinky_up:
                 pyautogui.hotkey('win', 'm')
                 action = "Minimize"
-            # Maximize/Restore with index + middle
+         
             elif index_up and middle_up and not thumb_up and not ring_up and not pinky_up:
                 pyautogui.hotkey('win', 'up')
                 action = "Maximize/Restore"
-            # Zoom In with index + pinky
+       
             elif index_up and pinky_up and not thumb_up and not middle_up and not ring_up:
                 pyautogui.hotkey('ctrl', '+')
                 action = "Zoom In"
-            # Zoom Out with pinky
+          
             elif pinky_up and not thumb_up and not index_up and not middle_up and not ring_up:
                 pyautogui.hotkey('ctrl', '-')
                 action = "Zoom Out"
 
         if action:
             self.last_gesture_time = current_time
-            time.sleep(1)  # Hold for 1 second after gesture
-            self.y_history.clear()  # Reset history after gesture
+            time.sleep(1)  
+            self.y_history.clear() 
             return action
 
         return None
