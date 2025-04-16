@@ -4,8 +4,6 @@ Welcome to **InteractAI**, a real-time gesture recognition system that lets you 
 
 I developed this project as part of my B.Tech in Computer Science and Engineering at Karunya Institute of Technology and Sciences, and I’m excited to share it with the community! Check out the details below to get started.
 
----
-
 ## 📖 Project Overview
 
 InteractAI uses computer vision to detect and interpret hand gestures in real-time, mapping them to actions like mouse control, scrolling, zooming, and window management. It’s designed to enhance accessibility and provide an intuitive way to interact with devices, with potential applications in gaming, virtual reality, and assistive technology.
@@ -16,8 +14,6 @@ InteractAI uses computer vision to detect and interpret hand gestures in real-ti
 - **Dual-Hand Support**: Right hand for mouse and volume control, left hand for window management and zooming.
 - **Accessibility Focus**: Makes technology more accessible for users with limited mobility.
 - **Presented at Karunya Innovation Event**: Received positive feedback for its innovative approach.
-
----
 
 ## 🚀 Getting Started
 
@@ -80,11 +76,88 @@ To ensure compatibility with MediaPipe, follow these steps to set up your Python
      sudo apt-get install libgl1-mesa-glx
      ```
 
----
-
 ## 🛠️ Installation and Usage
 
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/jinto-joseph/interactai.git
    cd interactai
+
+## 🛠️ Installation and Usage
+
+### Run the Script
+- The script will open a webcam feed and display recognized gestures.
+
+### Right Hand Gestures:
+
+- **Left Click**: Thumb up only
+
+- **Right Click**: Index + Middle up
+
+- **Double Click**: Index + Thumb up
+
+- **Scroll Up**: Index + Middle + Ring + Pinky up
+
+- **Scroll Down**: Index + Middle + Ring up
+
+- **Volume Up**: All fingers up, hold steady
+
+- **Volume Down**: All fingers up + move hand downward
+
+- **Mouse Move**: Tracks index finger tip
+
+
+### Left Hand Gestures:
+
+- **Shutdown**: Middle up only
+
+- **Minimize**: Index up only
+
+- **Maximize/Restore**: Index + Middle up
+
+- **Zoom In**: Index + Pinky up
+
+- **Zoom Out**: Pinky up only
+
+- **Press q to quit the application.**
+
+## 📸 Demo
+
+*Coming soon!* I’ll be adding a demo video showcasing InteractAI in action. Stay tuned to see how gestures can control your device effortlessly! 🎥
+
+## 🛠️ Troubleshooting
+
+### 📷 Webcam Not Found
+- Ensure your webcam is connected and accessible. Test with another application (e.g., Zoom) to confirm. 🔍  
+- Check if the webcam index (`cv2.VideoCapture(0)`) needs to be changed to `1` or another value. ⚙️  
+
+### 🐞 MediaPipe Errors
+- Verify your Python version is 3.8 or 3.9. 🐍  
+- Reinstall MediaPipe:  
+  ```bash
+  pip install mediapipe --force-reinstall
+  ``` 🔄
+
+### ⚡ Lag or Performance Issues
+- Reduce the webcam resolution in the code (e.g., `self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)`). 📏  
+- Close other resource-heavy applications. 🚫  
+
+## 🤝 Contributing
+
+I’d love for you to contribute to InteractAI! Whether it’s adding new gestures, improving performance, or fixing bugs, your input is welcome. Fork the repository, make your changes, and submit a pull request. Let’s make human-computer interaction more intuitive together! 🌟
+
+## 📬 Contact
+
+Have questions or ideas? Reach out to me! 📩  
+- **Email**: [jintojoseph.jo@gmail.com](mailto:jintojoseph.jo@gmail.com) ✉️  
+- **LinkedIn**: [linkedin.com/in/jinto-joseph-9937a5324](https://www.linkedin.com/in/jinto-joseph-9937a5324/) 🔗
+
+## 🌟 Acknowledgments
+
+- Thanks to the MediaPipe team for their amazing hand-tracking library. 🙌  
+- Inspired by the potential of computer vision to enhance accessibility. 👓  
+- Grateful to Karunya Institute of Technology and Sciences for fostering innovation through events and projects. 🏫  
+
+---
+
+*Let’s build the future of human-computer interaction—one gesture at a time!* 🚀
