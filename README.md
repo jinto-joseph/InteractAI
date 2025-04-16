@@ -156,7 +156,11 @@ Have questions or ideas? Reach out to me! 📩
 
 - Thanks to the MediaPipe team for their amazing hand-tracking library. 🙌  
 - Inspired by the potential of computer vision to enhance accessibility. 👓  
-- Grateful to Karunya Institute of Technology and Sciences for fostering innovation through events and projects. 🏫  
+- Grateful to Karunya Institute of Technology and Sciences for fostering innovation through events and projects. 🏫
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 📝
 
 ---
 
