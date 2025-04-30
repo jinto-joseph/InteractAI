@@ -136,7 +136,6 @@ To ensure compatibility with MediaPipe, follow these steps to set up your Python
 - Reinstall MediaPipe:  
   ```bash
   pip install mediapipe --force-reinstall
-  ``` 🔄
 
 ### ⚡ Lag or Performance Issues
 - Reduce the webcam resolution in the code (e.g., `self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)`). 📏  
